@@ -635,9 +635,7 @@ function sheetLines(){const {R,F,cost,P,pick}=LAST,c=pick.c,vat=cost.total*P.vat
   const it=[['Tấm pin '+nf(c.kwp)+' kWp',cost.sell.pv],['Inverter hòa lưới '+nf(cost.invKw)+' kW',cost.sell.inv],['Khung, cáp, tủ điện, lắp đặt',cost.sell.bos],
     [c.nB?`Tủ pin lưu trữ ${c.nB} × ${nf(P.batCap)} kWh, PCS ${nf(c.nB*P.pcsKw)} kW`:'',cost.sell.bat],[c.nB?'Lắp đặt pin, móng, cáp, EMS, PCCC':'',cost.sell.batInst],['Thiết kế, thủ tục, đấu nối'+(P.expOn?'':', chống phát ngược'),cost.sell.fixed]].filter(x=>x[0]&&x[1]>0);
   const kwhB=c.nB*P.batCap,spec=[c.kwp>0?nf(c.kwp)+' kWp điện mặt trời':'',c.nB>0?nf(kwhB)+' kWh lưu trữ':''].filter(Boolean).join(' + ');
-  const roof=Math.max(+$('cMaxPv').value||0,+$('cFixPv').value||0);
   const L=[['sec','Thông số hệ thống',''],['big hl','Hệ thống',spec],
-    ...(roof>0?[['','Mái lắp được tối đa',nf(roof)+' kWp']]:[]),
     ['','Sản lượng điện mặt trời năm đầu',kwhS(R.gen)],
     ['sec','Hạng mục và giá (chưa VAT)',''],...it.map(([k,v])=>['',k,vnd(v)]),['sep'],['big','Tổng giá chưa VAT',vnd(cost.total)],['','VAT '+nf(P.vat)+'%',vnd(vat)],['big hl','Tổng thanh toán',vnd(cost.total+vat)],
     ...(c.kwp>0?[['','Đơn giá phần điện mặt trời',nf((cost.sell.pv+cost.sell.inv+cost.sell.bos+cost.sell.fixed)/(c.kwp*1000))+' đ/Wp']]:[]),
